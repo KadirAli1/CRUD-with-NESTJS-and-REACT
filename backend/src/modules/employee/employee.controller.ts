@@ -1,4 +1,13 @@
-import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { EmployeeDTO } from './dto/create-employee.dto';
 import { EmployeeService } from './employee.service';
 
 @Controller('employees')
@@ -7,24 +16,24 @@ export class EmployeeController {
 
   @Get()
   findAll() {
-    return 'hello Worlds';
+    return this.employee.findAll();
   }
 
   @Get(':id')
-  findOne() {
-    return ' returm one employee';
+  findOne(@Param('id') id: number) {
+    return this.employee.findOne(id);
   }
 
   @Post('/creates')
-  createOne() {
-    return 'i am created one ';
+  createOne(@Body() createEmployeeDTO: EmployeeDTO) {
+    return this.employee.createOne(createEmployeeDTO);
   }
   @Put(':id')
-  updateOne() {
-    return 'update one';
+  updateOne(@Param('id') id: number, @Body() updateEmployee: EmployeeDTO) {
+    return this.employee.updateOne(id, updateEmployee);
   }
   @Delete(':id')
-  deleteOne() {
-    return 'delte one';
+  deleteOne(@Param('id') id: number) {
+    return this.employee.deleteOne(id);
   }
 }
